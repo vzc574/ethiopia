@@ -183,3 +183,36 @@ FIXED_HOLIDAYS = {
     'labour': { 'month': 8, 'day': 23, 'tags': [HolidayTags.PUBLIC, HolidayTags.STATE] },
     'patriots': { 'month': 8, 'day': 27, 'tags': [HolidayTags.PUBLIC, HolidayTags.STATE] },
 }
+# --- Bahire Hasab Calculation Constants ---
+
+# TEWSAK_MAP is used to calculate the Tewsak adjustment based on the weekday of Beale Metqi.
+# The value is the number of days to add to get the day of the week to Saturday (index 6, or 7-day_index)
+# Assuming DAYS_OF_WEEK: 0=Sunday, 6=Saturday
+TEWSAK_MAP = {
+    "Sunday": 6,
+    "Monday": 5,
+    "Tuesday": 4,
+    "Wednesday": 3,
+    "Thursday": 2,
+    "Friday": 1,
+    "Saturday": 7, # This is equivalent to 0 in modulo 7 arithmetic
+}
+
+# The number of days a movable holiday is before or after Fasika (Tinsaye)
+MOVABLE_HOLIDAY_TEWSAK = {
+    'NINEVEH': -70,          # Nineveh Fast: Fasika - 70 days
+    'ABIY_TSOME': -55,       # Great Lent: Fasika - 55 days
+    'DEBRE_ZEIT': -14,       # Debre Zeit (Passion Week Start): Fasika - 14 days
+    'HOSANNA': -7,           # Hosanna: Fasika - 7 days
+    'TINSAYE': 0,            # Fasika (Easter): The anchor date
+    'ERGET': 40,             # Erget (Ascension): Fasika + 40 days
+    'PARACLETE': 50,         # Paraclete (Pentecost): Fasika + 50 days
+    'TSOME_HAWARYAT': 57,    # Apostles' Fast: Fasika + 57 days (or Paraclete + 7 days)
+    'TSOME_DIHNET': 58,      # Fast of the Saviour: Fasika + 58 days
+}
+
+# The list of keys for iteration (matching the keys in MOVABLE_HOLIDAY_TEWSAK)
+MOVABLE_HOLIDAYS = list(MOVABLE_HOLIDAY_TEWSAK.keys())
+
+# The day names you are using in Amharic (used to calculate Tewsak based on the weekday of Beale Metqi)
+DAY_NAMES_AMHARIC = ["እሑድ", "ሰኞ", "ማክሰኞ", "ረቡዕ", "ሐሙስ", "ዓርብ", "ቅዳሜ"]
