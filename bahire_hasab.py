@@ -1,87 +1,136 @@
-import tkinter as tk
-from constants import MONTH_NAMES, DAYS_OF_WEEK, FIXED_HOLIDAYS
-from bahire_hasab import get_bahire_hasab  # your module
+from utils import validate_numeric_inputs, get_weekday
+from day_arithmetic import add_days
+from conversions import to_gc
+from exceptions import UnknownHolidayError
+from constants import (
+    DAYS_OF_WEEK,
+    EVANGELIST_NAMES,
+    TEWSAK_MAP,
+    MOVABLE_HOLIDAY_TEWSAK,
+    KEY_TO_TEWSAK_MAP,
+    HOLIDAY_INFO,
+    MOVABLE_HOLIDAYS
+)
 
-root = tk.Tk()
-root.title("Ethiopian Months")
-root.geometry("600x550")
 
-label = tk.Label(root, text="Select a Month", font=("Arial", 14))
-label.pack(pady=10)
+def _calculate_bahire_hasab_base(ethiopian_year):
+    """
+    Calculates and returns all base values for the Bahire Hasab system. 
+    This internal helper is the single source of truth for the core computational logic. 
+    """
+    amete_alem = 5500 + ethiopian_year
+    metene_rabiet = amete_alem // 4
+    medeb = amete_alem % 19
 
-eth = MONTH_NAMES["english"]
-amh = MONTH_NAMES["amharic"]
-greg = MONTH_NAMES["gregorian"]
+    wenber = 18 if medeb == 0 else medeb - 1
+    abektie = (wenber * 11) % 30
+    metqi = (wenber * 19) % 30
 
-MONTH_DAYS = [30]*12 + [5]
+    beale_metqi_month = 1 if metqi > 14 else 2
+    beale_metqi_day = metqi
+    beale_metqi_date = {'year': ethiopian_year, 'month': beale_metqi_month, 'day': beale_metqi_day}
 
-ethiopian_year = 2016  # Example year; you can make it dynamic
+    beale_metqi_weekday = DAYS_OF_WEEK['english'][get_weekday(beale_metqi_date)]
+    tewsak = TEWSAK_MAP[beale_metqi_weekday]
 
-# Calculate Bahire Hasab for the year
-bahire = get_bahire_hasab(ethiopian_year, lang="english")
-movable_feasts = bahire['movableFeasts']
+    mebaja_hamer_sum = beale_metqi_day + tewsak
+    mebaja_hamer = mebaja_hamer_sum % 30 if mebaja_hamer_sum > 30 else mebaja_hamer_sum
 
-# Helper to get holidays for a given day
-def get_holidays(month_index, day):
-    holidays_list = []
+    nineveh_month = 5 if metqi > 14 else 6
+    if mebaja_hamer_sum > 30:
+        nineveh_month += 1
 
-    # Fixed holidays
-    for key, info in FIXED_HOLIDAYS.items():
-        if info['month'] == month_index + 1 and info['day'] == day:
-            holidays_list.append(key)
+    nineveh_date = {'year': ethiopian_year, 'month': nineveh_month, 'day': mebaja_hamer}
 
-    # Movable holidays
-    for key, info in movable_feasts.items():
-        ethiopian_date = info['ethiopian']
-        if ethiopian_date['month'] == month_index + 1 and ethiopian_date['day'] == day:
-            holidays_list.append(key)
+    return {
+        'amete_alem': amete_alem,
+        'metene_rabiet': metene_rabiet,
+        'medeb': medeb,
+        'wenber': wenber,
+        'abektie': abektie,
+        'metqi': metqi,
+        'beale_metqi_date': beale_metqi_date,
+        'beale_metqi_weekday': beale_metqi_weekday,
+        'mebaja_hamer': mebaja_hamer,
+        'nineveh_date': nineveh_date,
+    }
 
-    return holidays_list
 
-# Open day window
-def open_day_window(month_index):
-    month_name = f"{eth[month_index]} | {amh[month_index]} | {greg[month_index] if month_index < 12 else '—'}"
-    
-    day_window = tk.Toplevel(root)
-    day_window.title(f"Days of {month_name}")
-    day_window.geometry("500x400")
+def get_bahire_hasab(ethiopian_year, lang='amharic'):
+    """
+    Calculates all Bahire Hasab values for a given Ethiopian year. 
 
-    day_label = tk.Label(day_window, text=f"Selected Month: {month_name}", font=("Arial", 12))
-    day_label.pack(pady=10)
+    Args:
+        ethiopian_year (int): The Ethiopian year to calculate for.
+        lang (str): The language for names ('amharic' or 'english'). 
 
-    day_frame = tk.Frame(day_window)
-    day_frame.pack(pady=10)
+    Returns:
+        dict: An object containing all the calculated Bahire Hasab values. 
+    """
+    validate_numeric_inputs('get_bahire_hasab', ethiopian_year=ethiopian_year)
 
-    num_days = MONTH_DAYS[month_index]
-    week_names = DAYS_OF_WEEK["english"]
+    base = _calculate_bahire_hasab_base(ethiopian_year)
 
-    for day in range(1, num_days + 1):
-        day_of_week = week_names[(day - 1) % 7]
-        btn_text = f"{day} | {day_of_week}"
+    evangelist_remainder = base['amete_alem'] % 4
+    evangelist_name = EVANGELIST_NAMES.get(lang, EVANGELIST_NAMES['english'])[evangelist_remainder]
 
-        def on_day_click(d=day):
-            holidays = get_holidays(month_index, d)
-            if holidays:
-                holiday_names = ', '.join([h.capitalize() for h in holidays])
-                day_label.config(text=f"{month_name} - Day {d} ({day_of_week})\nHoliday: {holiday_names}")
-            else:
-                day_label.config(text=f"{month_name} - Day {d} ({day_of_week})\nNo holiday")
+    tinte_qemer = (base['amete_alem'] + base['metene_rabiet']) % 7
+    weekday_index = (tinte_qemer + 1) % 7
+    new_year_weekday = DAYS_OF_WEEK.get(lang, DAYS_OF_WEEK['english'])[weekday_index]
 
-        row = (day - 1) // 7
-        col = (day - 1) % 7
-        btn = tk.Button(day_frame, text=btn_text, width=12, command=on_day_click)
-        btn.grid(row=row, column=col, padx=2, pady=2)
+    movable_feasts = {}
+    tewsak_to_key_map = {v: k for k, v in KEY_TO_TEWSAK_MAP.items()}
 
-# Month buttons
-for i in range(len(eth)):
-    greg_name = greg[i] if i < 12 else "—"
-    text = f"{eth[i]} | {amh[i]} | {greg_name}"
-    
-    btn = tk.Button(
-        root,
-        text=text,
-        command=lambda idx=i: open_day_window(idx)
-    )
-    btn.pack(fill="x", padx=20, pady=3)
+    for tewsak_key, tewsak_value in MOVABLE_HOLIDAY_TEWSAK.items():
+        holiday_key = tewsak_to_key_map.get(tewsak_key)
+        if holiday_key:
+            date = add_days(base['nineveh_date'], tewsak_value)
+            info = HOLIDAY_INFO.get(holiday_key, {})
+            rules = MOVABLE_HOLIDAYS.get(holiday_key, {})
 
-root.mainloop()
+            movable_feasts[holiday_key] = {
+                'key': holiday_key,
+                'tags': rules.get('tags', []),
+                'movable': True,
+                'name': info.get('name', {}).get(lang) or info.get('name', {}).get('english'),
+                'description': info.get('description', {}).get(lang) or info.get('description', {}).get('english'),
+                'ethiopian': date,
+                'gregorian': to_gc(date['year'], date['month'], date['day'])
+            }
+
+    return {
+        'ameteAlem': base['amete_alem'],
+        'meteneRabiet': base['metene_rabiet'],
+        'evangelist': {'name': evangelist_name, 'remainder': evangelist_remainder},
+        'newYear': {'dayName': new_year_weekday, 'tinteQemer': tinte_qemer},
+        'medeb': base['medeb'],
+        'wenber': base['wenber'],
+        'abektie': base['abektie'],
+        'metqi': base['metqi'],
+        'bealeMetqi': {'date': base['beale_metqi_date'], 'weekday': base['beale_metqi_weekday']},
+        'mebajaHamer': base['mebaja_hamer'],
+        'nineveh': base['nineveh_date'],
+        'movableFeasts': movable_feasts
+    }
+
+
+def get_movable_holiday(holiday_key, ethiopian_year):
+    """
+    Calculates the date of a movable holiday for a given year. 
+
+    Args:
+        holiday_key (str): The key of the holiday (e.g., 'ABIY_TSOME', 'TINSAYE'). 
+        ethiopian_year (int): The Ethiopian year. 
+
+    Returns:
+        dict: An Ethiopian date object {'year', 'month', 'day'}. 
+    """
+    validate_numeric_inputs('get_movable_holiday', ethiopian_year=ethiopian_year)
+
+    tewsak = MOVABLE_HOLIDAY_TEWSAK.get(holiday_key)
+    if tewsak is None:
+        raise UnknownHolidayError(holiday_key)
+
+    base = _calculate_bahire_hasab_base(ethiopian_year)
+
+    return add_days(base['nineveh_date'], tewsak) 

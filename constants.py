@@ -48,63 +48,86 @@ PERIOD_LABELS = {
 HOLIDAY_INFO = {
   'enkutatash': {
     'name': {'amharic': 'እንቁጣጣሽ', 'english': 'Ethiopian New Year (Enkutatash)'},
-    'description': {'amharic': 'የኢትዮጵያ አዲስ ዓመት መጀመሪያ፤\nየዝናብ ወቅት ማብቃቱን እና ዳግም መታደስን ያመለክታል።', 'english': 'Marks the start of the Ethiopian year;\nsymbolizes renewal and the end of the rainy season.'}
+    'description': {
+        'amharic': 'የኢትዮጵያ አዲስ ዓመት መጀመሪያ...',
+        'english': 'Marks the start of the Ethiopian year...'
+    },
+    'image': 'assest/enkutatash.png'  # Your specific prepared file
   },
   'meskel': {
     'name': {'amharic': 'መስቀል', 'english': 'Finding of the True Cross (Meskel)'},
-    'description': {'amharic': 'በ4ኛው መቶ ክፍለ ዘመን በንግሥት እሌኒ አማካኝነት የጌታችን መስቀል መገኘቱን ያከብራል።', 'english': 'Commemorates the discovery of the True Cross by Empress Helena in the 4th century.'}
+    'description': {'amharic': '',
+                    'english': '...'
+    },
+    # No image key here yet
+
+   'image': 'assest/meskel.png'
   },
   'beherbehereseb': {
     'name': {'amharic': 'የብሔር ብሔረሰቦች ቀን', 'english': 'Nations, Nationalities, and Peoples\' Day'},
-    'description': {'amharic': 'የኢትዮጵያ ብሔር ብሔረሰቦችን ልዩነት የሚያከብር፣ እኩል መብታቸውን የሚያረጋግጥ እና በባህልና ቋንቋ አንድነትን የሚያጠናክር በዓል ነው።', 'english': 'Acknowledges and celebrates the diversity of Ethiopia\'s ethnic groups, affirming their equal rights and fostering unity.'}
+    'description': {'amharic': 'የኢትዮጵያ ብሔር ብሔረሰቦችን ልዩነት የሚያከብር፣ እኩል መብታቸውን የሚያረጋግጥ እና በባህልና ቋንቋ አንድነትን የሚያጠናክር በዓል ነው።', 'english': 'Acknowledges and celebrates the diversity of Ethiopia\'s ethnic groups, affirming their equal rights and fostering unity.'},
+'image': 'assest/ethiopian.png'
   },
+
   'gena': {
     'name': {'amharic': 'ገና', 'english': 'Ethiopian Christmas (Genna)'},
-    'description': {'amharic': 'የኢየሱስ ክርስቶስን ልደት የሚያከብር የኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተ ክርስቲያን በዓል።', 'english': 'Ethiopian Orthodox Christmas celebrating the birth of Jesus Christ.'}
+    'description': {'amharic': 'የኢየሱስ ክርስቶስን ልደት የሚያከብር የኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተ ክርስቲያን በዓል።', 'english': 'Ethiopian Orthodox Christmas celebrating the birth of Jesus Christ.'},
+'image': 'assest/gena.png'
   },
   'timket': {
     'name': {'amharic': 'ጥምቀት', 'english': 'Ethiopian Epiphany (Timket)'},
-    'description': {'amharic': 'የኢየሱስ ክርስቶስን በዮርዳኖስ ወንዝ መጠመቁን ያከብራል።', 'english': 'Commemorates the baptism of Jesus in the Jordan River.'}
+    'description': {'amharic': 'የኢየሱስ ክርስቶስን በዮርዳኖስ ወንዝ መጠመቁን ያከብራል።', 'english': 'Commemorates the baptism of Jesus in the Jordan River.'},
+      'image' : 'assest/timket.png'
   },
   'martyrsDay': {
     'name': {'amharic': 'የሰማዕታት ቀን', 'english': 'Martyrs\' Day'},
-    'description': {'amharic': 'ለኢትዮጵያ ነፃነትና ክብር ሕይወታቸውን የሠዉ ሰማዕታትን ያስባል።', 'english': 'Honors those who sacrificed their lives for Ethiopia’s freedom and independence.'}
+    'description': {'amharic': 'ለኢትዮጵያ ነፃነትና ክብር ሕይወታቸውን የሠዉ ሰማዕታትን ያስባል።', 'english': 'Honors those who sacrificed their lives for Ethiopia’s freedom and independence.'},
+      'image': 'assest/sematat.png'
   },
   'adwa': {
     'name': {'amharic': 'የአድዋ ድል በዓል', 'english': 'Victory of Adwa'},
-    'description': {'amharic': 'በ1896 ዓ.ም.\nኢትዮጵያ በጣሊያን ቅኝ ገዥዎች ላይ የተቀዳጀችውን ድል ያከብራል።', 'english': 'Celebrates Ethiopia’s victory over Italian colonizers in 1896.'}
+    'description': {'amharic': 'በ1896 ዓ.ም.\nኢትዮጵያ በጣሊያን ቅኝ ገዥዎች ላይ የተቀዳጀችውን ድል ያከብራል።', 'english': 'Celebrates Ethiopia’s victory over Italian colonizers in 1896.'},
+      'image': 'assest/adwa.png'
   },
   'labour': {
     'name': {'amharic': 'የሰራተኞች ቀን', 'english': 'International Labour Day'},
-    'description': {'amharic': 'ዓለም አቀፍ የሠራተኞችና የሥራ መብቶች ቀን ነው።', 'english': 'A global celebration of workers and labor rights.'}
+    'description': {'amharic': 'ዓለም አቀፍ የሠራተኞችና የሥራ መብቶች ቀን ነው።', 'english': 'A global celebration of workers and labor rights.'},
+      'image': 'assest/labour.png'
   },
   'patriots': {
     'name': {'amharic': 'የአርበኞች ቀን', 'english': 'Patriots\' Victory Day'},
-    'description': {'amharic': 'የጣሊያን ወረራን የተቋቋሙ ኢትዮጵያውያን አርበኞችን ድል ያስባል።', 'english': 'Honors Ethiopian resistance fighters who defeated Italian occupation.'}
+    'description': {'amharic': 'የጣሊያን ወረራን የተቋቋሙ ኢትዮጵያውያን አርበኞችን ድል ያስባል።', 'english': 'Honors Ethiopian resistance fighters who defeated Italian occupation.'},
+      'image': 'assest/patroitsm.png'
   },
   'nineveh': {
     'name': {'amharic': 'ጾመ ነነዌ', 'english': 'Fast of Nineveh'},
-    'description': {'amharic': 'የነነዌ ሰዎች ንስሐ መግባታቸውን የሚያስታውስ የሦስት ቀን ጾም ነው።', 'english': 'A three-day fast commemorating the repentance of the people of Nineveh.'}
+    'description': {'amharic': 'የነነዌ ሰዎች ንስሐ መግባታቸውን የሚያስታውስ የሦስት ቀን ጾም ነው።', 'english': 'A three-day fast commemorating the repentance of the people of Nineveh.'},
+      'image': 'assest/nenewe.png'
   },
   'abiyTsome': {
     'name': {'amharic': 'ዐቢይ ጾም', 'english': 'Great Lent'},
-    'description': {'amharic': 'ከፋሲካ በፊት የሚጾም የ55 ቀናት የጾም ወቅት ነው።', 'english': 'The Great Lent, a 55-day fasting period before Easter.'}
+    'description': {'amharic': 'ከፋሲካ በፊት የሚጾም የ55 ቀናት የጾም ወቅት ነው።', 'english': 'The Great Lent, a 55-day fasting period before Easter.'},
+      'image': 'assest/abiytsom.png'
   },
   'debreZeit': {
     'name': {'amharic': 'ደብረ ዘይት', 'english': 'Mid-Lent Sunday'},
-    'description': {'amharic': 'ኢየሱስ በደብረ ዘይት ተራራ ያስተማረውን ትምህርት የሚያስታውስ የዐቢይ ጾም አጋማሽ እሑድ።', 'english': 'Mid-Lent Sunday, commemorating Jesus\'s sermon on the Mount of Olives.'}
+    'description': {'amharic': 'ኢየሱስ በደብረ ዘይት ተራራ ያስተማረውን ትምህርት የሚያስታውስ የዐቢይ ጾም አጋማሽ እሑድ።', 'english': 'Mid-Lent Sunday, commemorating Jesus\'s sermon on the Mount of Olives.'},
+      'image': 'assest/debrezeyit.png'
   },
   'hosanna': {
     'name': {'amharic': 'ሆሳዕና', 'english': 'Palm Sunday'},
-    'description': {'amharic': 'ኢየሱስ በክብር ወደ ኢየሩሳሌም መግባቱን የሚያስታውስ በዓል።', 'english': 'Palm Sunday, commemorating Jesus\'s triumphal entry into Jerusalem.'}
+    'description': {'amharic': 'ኢየሱስ በክብር ወደ ኢየሩሳሌም መግባቱን የሚያስታውስ በዓል።', 'english': 'Palm Sunday, commemorating Jesus\'s triumphal entry into Jerusalem.'},
+      'image': 'assest/hosana.png'
   },
   'siklet': {
     'name': {'amharic': 'ስቅለት', 'english': 'Good Friday'},
-    'description': {'amharic': 'የኢየሱስ ክርስቶስን ስቅለት የሚያስታውስ ነው።', 'english': 'Marks the crucifixion of Jesus Christ.'}
+    'description': {'amharic': 'የኢየሱስ ክርስቶስን ስቅለት የሚያስታውስ ነው።', 'english': 'Marks the crucifixion of Jesus Christ.'},
+      'image': 'assest/siklet.png'
   },
   'fasika': {
     'name': {'amharic': 'ፋሲካ', 'english': 'Ethiopian Easter'},
-    'description': {'amharic': 'የኢየሱስ ክርስቶስን ከሙታን መነሣት ያከብራል።\nበኢትዮጵያ ውስጥ ካሉ ክርስቲያናዊ በዓላት አንዱና ዋነኛው ነው።', 'english': 'Celebrates the resurrection of Jesus Christ.\nOne of the most important Christian holidays in Ethiopia.'}
+    'description': {'amharic': 'የኢየሱስ ክርስቶስን ከሙታን መነሣት ያከብራል።\nበኢትዮጵያ ውስጥ ካሉ ክርስቲያናዊ በዓላት አንዱና ዋነኛው ነው።', 'english': 'Celebrates the resurrection of Jesus Christ.\nOne of the most important Christian holidays in Ethiopia.'},
+      'image': 'assest/fasika.png'
   },
   'rikbeKahnat': {
     'name': {'amharic': 'ርክበ ካህናት', 'english': 'Meeting of the Priests'},
