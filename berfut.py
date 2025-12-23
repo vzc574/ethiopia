@@ -2,7 +2,7 @@ import tkinter as tk
 
 root = tk.Tk()
 root.title("Loop Example")
-root.geometry("300x250")
+root.geometry("1300x250")
 
 for i in range(5):
     btn = tk.Button(root, text=f"Button {i+1}")

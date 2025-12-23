@@ -56,13 +56,11 @@ HOLIDAY_INFO = {
   },
   'meskel': {
     'name': {'amharic': 'መስቀል', 'english': 'Finding of the True Cross (Meskel)'},
-    'description': {'amharic': '',
-                    'english': '...'
-    },
-    # No image key here yet
-
+    'description': {'amharic': 'በ4ኛው መቶ ክፍለ ዘመን በንግሥት እሌኒ አማካኝነት የጌታችን መስቀል መገኘቱን ያከብራል።', 'english': 'Commemorates the discovery of the True Cross by Empress Helena in the 4th century.'},
+  
    'image': 'assest/meskel.png'
   },
+  
   'beherbehereseb': {
     'name': {'amharic': 'የብሔር ብሔረሰቦች ቀን', 'english': 'Nations, Nationalities, and Peoples\' Day'},
     'description': {'amharic': 'የኢትዮጵያ ብሔር ብሔረሰቦችን ልዩነት የሚያከብር፣ እኩል መብታቸውን የሚያረጋግጥ እና በባህልና ቋንቋ አንድነትን የሚያጠናክር በዓል ነው።', 'english': 'Acknowledges and celebrates the diversity of Ethiopia\'s ethnic groups, affirming their equal rights and fostering unity.'},
