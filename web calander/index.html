@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethiopian Calendar Tool</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="modal" class="modal hidden" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h2 id="m-name-en"></h2>
+            
+            <h3 id="m-name-am" class="amharic-title"></h3>
+            
+            <div class="image-container">
+                <img id="m-image" src="" alt="Holiday Illustration">
+            </div>
+
+            <p id="m-desc-am" class="amharic-text"></p>
+            
+            <p id="m-desc-en" class="english-italic"></p>
+            
+            <button class="close-btn" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <div class="app-container">
+        
+        <aside class="sidebar">
+            <h2 class="sidebar-title">E.C. Calendar</h2>
+            
+            <div class="input-group">
+                <label for="eth-year">Ethiopian Year:</label>
+                <input type="number" id="eth-year" value="2018">
+            </div>
+
+            <nav id="month-list">
+                </nav>
+
+            <div class="converter-box">
+                <h4>E.C. to G.C. Converter</h4>
+                <div class="conv-inputs">
+                    <input type="number" id="c-d" placeholder="Day">
+                    <input type="number" id="c-m" placeholder="Month">
+                </div>
+                <button onclick="convert()">Convert</button>
+                <p id="conv-out"></p>
+            </div>
+        </aside>
+
+        <main class="calendar-main">
+            <header class="calendar-header">
+                <h1 id="month-title">Select a Month</h1>
+                <p id="evangelist-tag" class="evangelist"></p>
+            </header>
+
+            <div class="days-header">
+                <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+            </div>
+
+            <div id="days-grid" class="days-grid">
+                </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

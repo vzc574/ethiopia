@@ -32,7 +32,7 @@ class EthiopianCalendarApp:
         self.year_frame.pack(pady=20)
         tk.Label(self.year_frame, text="Ethiopian Year:", font=("Arial", 12, "bold")).pack(side=tk.LEFT)
         self.year_entry = tk.Entry(self.year_frame, width=10, font=("Arial", 12))
-        self.year_entry.insert(0, "2016")
+        self.year_entry.insert(0, "2018")
         self.year_entry.pack(side=tk.LEFT, padx=5)
 
         tk.Label(self.root, text="Select a Month", font=("Arial", 14, "bold")).pack(pady=10)
